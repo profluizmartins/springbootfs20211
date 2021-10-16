@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.ufg.inf.fs.entities.Hotel;
@@ -19,6 +21,12 @@ public class HotelBusiness {
 	public List<Hotel> findAll(){
 		return repository.findAll();		
 	}
+	
+	
+	public Page<Hotel> paginator(Pageable pageable){
+		return repository.findAll(pageable);		
+	}
+	
 	
 	public List<Hotel> findName(String str){
 		return repository.findByNmHotel(str);

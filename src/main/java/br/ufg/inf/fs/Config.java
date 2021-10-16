@@ -2,18 +2,16 @@ package br.ufg.inf.fs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.ufg.inf.fs.entities.Hotel;
 import br.ufg.inf.fs.entities.Quarto;
 import br.ufg.inf.fs.entities.Regra;
-import br.ufg.inf.fs.entities.Usuario;
 import br.ufg.inf.fs.enums.CategoriaQuarto;
 import br.ufg.inf.fs.repositories.HotelRepository;
 import br.ufg.inf.fs.repositories.QuartoRepository;
@@ -44,6 +42,19 @@ public class Config  implements CommandLineRunner{
 		 * INSERIR NO MEU BANCO DE DADOS INFORMAÇÕES INICIAIS...
 		 * */
 		
+		String[] tipoH = new String[]{"Hotel", "Pousada", "Resort", "Hostel", "Pensão"};
+		String[] nomeH = new String[]{"dos Pássados", "das Emas", "dos Imigrantes", "da Alegria", "da Cidade"};
+		String[] localH = new String[]{"Goiânia","Anápolis","Brasília","Trindade", "Senador Canedo"};
+		
+		for(int i = 0; i <10; i++) {
+			hoteRepository.save(new Hotel(
+					null,
+					tipoH[new Random().nextInt(5)]+" "+nomeH[new Random().nextInt(5)],
+					localH[new Random().nextInt(5)],
+					new Random().nextInt(5)+1
+					));
+		}
+
 		Hotel h1 = new Hotel(null, "Calderão Furado", "Beco Diagonal", 3);
 		Hotel h2 = new Hotel(null, "Bates Hotel", "White Pine Bay", 2);
 		Hotel h3 = new Hotel(null, "Hotel Overlook", "Colorado", 4);
@@ -69,7 +80,7 @@ public class Config  implements CommandLineRunner{
 		regras.add(r1);
 		regras.add(r2);
 
-		
+		/*
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		Usuario usu1 = usuarioRepository.save(new Usuario("luiz", "Luiz Martins", encoder.encode("4321"), regras));
 
@@ -79,7 +90,7 @@ public class Config  implements CommandLineRunner{
 		regras.add(r3);
 		
 		Usuario usu2 = usuarioRepository.save(new Usuario("jose", "Jose Silva", encoder.encode("asdf"), regras));
-	
+		 */
 	}
 
 }
